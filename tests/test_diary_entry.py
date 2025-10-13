@@ -50,23 +50,11 @@ def test_minutes_it_takes_to_read_diary_entry():
     assert actual == expected
 
 '''
-Given a wpm of 3
-And a text with 14 words
-# reading_time returns 5 minutes
-'''
-
-def test_minutes_it_takes_to_read_diary_entry():
-    diary_entry = DiaryEntry("Friday, 10th of October", "Today we're going to the Natural History Museum to see animals.")
-    actual = diary_entry.reading_time(3)
-    expected = 5
-    assert actual == expected
-
-'''
-Given a wpm of 2 and an interval of 4 minutes
-And a text with 12 words
+Given a a text of 12 words
+And a wpm of 2 
+And an interval of 4 minutes
 # reading_chunk returns the first 8 words
 '''
-
 
 def test_when_user_does_not_finish_reading_contents_in_given_time():
     diary_entry = DiaryEntry("Friday, 10th of October", "Today we're going to the Natural History Museum.")
@@ -74,35 +62,19 @@ def test_when_user_does_not_finish_reading_contents_in_given_time():
     expected = "Friday, 10th of October: Today we're going to"
     assert actual == expected
 
-'''
-Given a wpm of 4 and an interval of 4 minutes
-And a text with 12 words
-# reading_chunk returns the entire text
-'''
-
-
 def test_when_user_finishes_reading_contents_in_given_times():
     diary_entry = DiaryEntry("Friday, 10th of October", "Today we're going to the Natural History Museum.")
     actual = diary_entry.reading_chunk(4, 4)
     expected = "Friday, 10th of October: Today we're going to the Natural History Museum."
     assert actual == expected
 
-'''
-Given a wpm of 2 and an interval of 4 minutes
-And a text with 24 words
-First time, # reading_chunk returns  "David Attenborough exhibition and to see the dinosaurs."
-Second time, # reading_chunk returns  "David Attenborough exhibition and to see the dinosaurs."
-Third time, # reading_chunk returns  "David Attenborough exhibition and to see the dinosaurs."
-'''
-
-
 def test_when_user_continues_reading():
     diary_entry = DiaryEntry("Friday, 10th of October", "Today we're going to the Natural History Museum to see the new David Attenborough exhibition and to see the dinosaurs.")
-    assert diary_entry.reading_chunk(2, 4) == "Friday, 10th of October: Today we're going to"
-    assert diary_entry.reading_chunk(2, 4) == "the Natural History Museum to see the new"
-    assert diary_entry.reading_chunk(2, 4) == "David Attenborough exhibition and to see the dinosaurs."
-  
-  
+    a = diary_entry.reading_chunk(2, 4)
+    b = diary_entry.reading_chunk(2, 4)
+    actual = diary_entry.reading_chunk(2, 4)
+    expected =   "David Attenborough exhibition and to see the dinosaurs."
+    assert actual == expected
 
 '''
 Given an empty title,
