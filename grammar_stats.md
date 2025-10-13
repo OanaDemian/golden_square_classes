@@ -62,17 +62,24 @@ grammar_stats = GrammarStats()
 grammar_stats.check("Walk the dog, Kay") # => False
 
 """
+Given the text walk the dog, Kay!
+#check returns False because the text doesn't begin with a capital letter 
+"""
+grammar_stats = GrammarStats()
+grammar_stats.check("Walk the dog, Kay!") # => False
+
+"""
 Given the texts "Walk the dog, Kay!", "Vacuum the rooms, Oana" and "Take the garbage out, Simon"
-#percentage_good returns 33
+#percentage_good returns 66
 """
 grammar_stats = GrammarStats()
 grammar_stats.check("Walk the dog, Kay!") # => True
 grammar_stats.check("Vacuum the rooms, Oana!") # => True
-grammar_stats.check("Take the garbage out, Simon!") # => False
-grammar_stats.percentage_good() # => 33
+grammar_stats.check("take the garbage out, Simon!") # => False
+grammar_stats.percentage_good() # => 66
 """
 
-Given no text
+Given empty string
 #check raises an exception
 """
 grammar_stats = GrammarStats()
@@ -84,8 +91,42 @@ Given no texts
 """
 grammar_stats = GrammarStats()
 grammar_stats.percentage_good() # => raises an error with the message "Cannot calculate a percentage of checked texts when no texts provided."
+
+
+"""
+Given string with whitespaces
+#check raises an exception
 """
 
+def test_check_when_text_with_whitespaces_only_provided():
+    grammar_stats = GrammarStats()
+    with pytest.raises(Exception) as e:
+        grammar_stats.check("   ") 
+    actual = str(e.value)
+    expected = "No text provided."
+    assert actual == expected
+
+"""
+Given string with only one character
+#check returns false
+"""
+
+def test_check_when_text_with_only_one_character_provided():
+    grammar_stats = GrammarStats()
+    actual = grammar_stats.check("m") # => False   
+    expected = False
+    assert actual == expected
+
+"""
+Given string starting a non alphabetical value
+#check returns false
+"""
+
+def test_check_when_text_starts_with_non_aplha_character():
+    grammar_stats = GrammarStats()
+    actual = grammar_stats.check(",") # => False   
+    expected = False
+    assert actual == expected
 ```
 
 _Encode each example as a test. You can add to the above list as you go._
